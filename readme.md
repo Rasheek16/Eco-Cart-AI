@@ -1,7 +1,3 @@
-Absolutely! Here's a **comprehensive, professional `README.md`** for your project that includes everything: frontend (React), backend (FastAPI via Uvicorn), AI features, setup steps, tech stack, screenshots, and contribution info.
-
----
-
 # 🌿 EcoBot — Your Smart Eco-Friendly Shopping Assistant 🛒💬
 
 **EcoBot** is an AI-powered smart shopping assistant that helps users build environmentally friendly carts while saving money and reducing waste. Whether you're adding groceries, planning a meal, or exploring better alternatives, EcoBot has your back with intelligent suggestions and a delightful chat interface.
