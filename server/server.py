@@ -360,23 +360,17 @@ FINAL_PROMPT = ChatPromptTemplate.from_messages(
     ]
 )
 
-# ────────────────────────────────────────────────────────────────
-# 🗃️  State type
-# ────────────────────────────────────────────────────────────────
+
 from typing import Literal
 
 
 class AgentState(TypedDict, total=False):
     user_message: str
-    intent: Optional[Literal["add", "remove"]]  # <-- NEW
-    product: Optional[str]  # <-- Renamed from product_to_add
+    intent: Optional[Literal["add", "remove"]] 
+    product: Optional[str]  
     tool_output: Optional[str]
     final_message: Optional[str]
 
-
-# ────────────────────────────────────────────────────────────────
-# 🧩  Nodes
-# ────────────────────────────────────────────────────────────────
 
 
 async def add_product(state: AgentState) -> AgentState:
@@ -445,9 +439,7 @@ async def final_response(state: AgentState) -> AgentState:
     return {**state, "final_message": reply.content}
 
 
-# ────────────────────────────────────────────────────────────────
-# 🔗  Graph wiring
-# ────────────────────────────────────────────────────────────────
+
 
 graph = StateGraph(AgentState)
 
@@ -463,53 +455,16 @@ graph.set_entry_point("decide")
 agent = graph.compile()
 
 
-# graph = StateGraph(AgentState)
-
-# # Add nodes
-# graph.add_node("decide", decide_intent)
-# graph.add_node("handle", handle_cart_action)
-# graph.add_node("final", final_response)
-
-# graph.add_edge("decide", "handle")
-# graph.add_edge("handle", "final")
-# graph.add_edge("final", END)
-
-# # Conditional transition
-
-
-# # def need_to_add(state: AgentState) -> str:
-# #     return "add" if state.get("product_to_add") else "final"
-
-
-# graph.add_conditional_edges("decide", need_to_add)
-
-# # Fixed edges
-# graph.add_edge("add", "final")
-
-# # End edge
-# graph.add_edge("final", END)
-
-# # Entry point
-# graph.set_entry_point("decide")
-
-# # Compile agent
-# agent = graph.compile()
-
-
-# -----------------------------------------------------------------------------
-# FastAPI app
-# -----------------------------------------------------------------------------
 
 app = FastAPI()
 
 origins = [
     "http://localhost:8081",
-    # Add your prod domain here later
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Or use ["*"] for all (not recommended in prod)
+    allow_origins=origins,  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -520,7 +475,7 @@ from fastapi import Body
 
 class SwapRequest(BaseModel):
     cart_item_id: int
-    alternative: str  # or alternative_id: int
+    alternative: str  
 
 
 from sqlalchemy import func
@@ -863,5 +818,4 @@ def seed_products():
             print("✅ Products already seeded.")
 
 
-# Seed at startup
-# seed_products()
+
